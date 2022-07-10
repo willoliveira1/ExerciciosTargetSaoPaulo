@@ -1,4 +1,9 @@
 // Mantive as classes no mesmo arquivo para ficar mais fácil de avaliarem, mas pela convenção do C# o correto seria estarem em outro arquivo
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+
 namespace ExercicioTres
 {
     public class Program
