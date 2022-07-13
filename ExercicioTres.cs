@@ -12,19 +12,19 @@ namespace ExercicioTres
         {
             double media=0;
             int contador=0, auxMedia=0;
+
             List<Faturamento> faturamento = new List<Faturamento>();
 
             using (StreamReader file = File.OpenText("data.json"))
             {
-                JsonSerializer serializer = new JsonSerializer();
-                Faturamento fat = (Faturamento)serializer.Deserialize(file, typeof(Faturamento));
-                faturamento.Add(fat);
+                string jsonString = file.ReadToEnd();
+                faturamento = JsonConvert.DeserializeObject<List<Faturamento>>(jsonString);
             }
 
-            double valorMinimo = faturamento[0].Dados[0].Valor;
-            double valorMaximo = faturamento[0].Dados[0].Valor;
+            double valorMinimo = faturamento[0].Valor;
+            double valorMaximo = faturamento[0].Valor;
 
-            foreach (var item in faturamento[0].Dados)
+            foreach (var item in faturamento)
             {
                 if (item.Valor < valorMinimo && item.Valor > 0)
                 {
@@ -44,7 +44,7 @@ namespace ExercicioTres
 
             media = media / auxMedia;
 
-            foreach (var dia in faturamento[0].Dados)
+            foreach (var dia in faturamento)
             {
                 if (dia.Valor > media)
                 {
@@ -61,12 +61,7 @@ namespace ExercicioTres
 
     public class Faturamento
     {
-        public FaturamentoJson[] Dados { get; set; }
-    }
-
-    public class FaturamentoJson
-    {
-        public string Data { get; set; }
+        public int Dia { get; set; }
         public double Valor { get; set; }
     }
 }
